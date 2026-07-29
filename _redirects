@@ -1,0 +1,3 @@
+# Cloudflare Pages path redirect. The destination is absolute so the apex
+# origin remains canonical even when a request arrives on another host.
+/ https://hedhly.com/de/ 301
