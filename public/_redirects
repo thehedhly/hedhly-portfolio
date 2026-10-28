@@ -1,0 +1,5 @@
+/ /de/ 301
+/index.html /de/ 301
+/error.html /404.html 301!
+/de /de/ 301
+/en /en/ 301

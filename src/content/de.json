@@ -1,0 +1,181 @@
+{
+  "localeName": "Deutsch",
+  "role": "DevSecOps & Azure Cloud Engineer",
+  "home": {
+    "title": "Hamza Hedhly – DevSecOps Engineer in Düsseldorf",
+    "description": "DevSecOps Engineer in Düsseldorf. Sichere Azure- und Kubernetes-Plattformen, automatisiert mit Terraform, Ansible und GitOps.",
+    "heading": "Cloud-Plattformen, die Teams sicher voranbringen.",
+    "lead": "Ich verbinde Cloud Engineering, Automatisierung und Security – von Azure und Kubernetes bis zu Infrastructure as Code und verlässlichen Releases.",
+    "eyebrow": "PLATFORM ENGINEERING / DÜSSELDORF",
+    "explore": "Explore",
+    "exploreLabel": "Explore – Portfolio erkunden",
+    "hireCta": "Offen für neue Aufgaben",
+    "hireLabel": "Offen für neue Aufgaben – Möglichkeiten ansehen",
+    "profileLink": "Profil & Kontakt",
+    "profileHint": "Erfahrung, Projekte und Möglichkeiten zur Kontaktaufnahme",
+    "workflowLabel": "Platform-Engineering-Schwerpunkte",
+    "workflowFile": "platform.workflow",
+    "workflowLines": [
+      {
+        "command": "$ terraform plan",
+        "result": "# Infrastruktur als Code"
+      },
+      {
+        "command": "$ kubectl get platform",
+        "result": "# Kubernetes / AKS"
+      },
+      {
+        "command": "$ argocd app list",
+        "result": "# Nachvollziehbare Releases"
+      }
+    ],
+    "technologyLabel": "Technologie-Schwerpunkte",
+    "expertiseKicker": "01 / Fachgebiete",
+    "expertiseHeading": "Cloud, Automatisierung & Security.",
+    "expertiseLead": "Von Azure und Kubernetes bis zu den Pipelines, mit denen Teams zuverlässig ausliefern.",
+    "experienceKicker": "02 / Erfahrung",
+    "experienceHeading": "Technische Tiefe. Pragmatische Umsetzung.",
+    "experienceSummary": "Vom Software Engineering über DevOps bis zur Cloud- und Plattformberatung.",
+    "outcomesKicker": "03 / Projektergebnisse",
+    "outcomesHeading": "Automatisierung mit technischem Nutzen.",
+    "outcomesLead": "Einblicke in standardisierte Plattformen, nachvollziehbare Deployments und verlässliche Rollbacks.",
+    "certKicker": "04 / Zertifizierungen",
+    "certHeading": "Expertise, extern bestätigt.",
+    "certSummary": "Kubernetes Security, Administration, Terraform und AWS.",
+    "contactKicker": "05 / Kontakt",
+    "contactHeading": "Lass uns über deine Plattform sprechen.",
+    "contactLead": "Welche Herausforderung können wir mit Azure, Kubernetes oder Automatisierung lösen?",
+    "allAreas": "Alle Terminal-Bereiche erkunden",
+    "footer": "Entwickelt für zuverlässige Systeme.",
+    "backTop": "Nach oben"
+  },
+  "explore": {
+    "title": "Portfolio entdecken | Hamza Hedhly",
+    "description": "DevSecOps- und Cloud-Engineering-Portfolio: Azure, AKS, Kubernetes, Terraform, Ansible, GitOps, Erfahrung und Zertifizierungen.",
+    "command": "whoami --verbose",
+    "intro": "Ich bin Hamza Hedhly, DevSecOps & Azure Cloud Engineer aus Düsseldorf. Ich baue sichere, automatisierte Cloud-Plattformen – von Azure und Kubernetes über Infrastructure as Code bis zu GitOps, CI/CD und zuverlässigem Betrieb.",
+    "emailPrompt": "E-Mail:",
+    "menuCommand": "./menu",
+    "menuHeading": "Was möchtest du entdecken?",
+    "shortcutLabel": "Nummern-Tastenkürzel für dieses Menü aktivieren",
+    "shortcutHelp": "Wenn ein Menüeintrag fokussiert ist, öffnet die Zahl 1 bis 4 den jeweiligen Bereich. Den aktiven Eintrag erneut auswählen, um ihn zu schließen.",
+    "menu": [
+      {
+        "id": "platform",
+        "label": "Cloud, Kubernetes & Security",
+        "file": "platform.md",
+        "command": "cat platform.md",
+        "description": "Azure, AKS, Infrastruktur als Code und Container-Plattformen."
+      },
+      {
+        "id": "automation",
+        "label": "Automatisierung, GitOps & Engineering",
+        "file": "automation.md",
+        "command": "cat automation.md",
+        "description": "CI/CD, Releases, Observability und Engineering."
+      },
+      {
+        "id": "experience",
+        "label": "Erfahrung & Zertifizierungen",
+        "file": "experience.md",
+        "command": "cat experience.md",
+        "description": "Berufserfahrung und bestätigte Fachkenntnisse."
+      },
+      {
+        "id": "profile",
+        "label": "Profil & Kontakt",
+        "file": "profile.md",
+        "command": "cat profile.md",
+        "description": "Arbeitsprinzipien, Standort und Kontakt."
+      }
+    ],
+    "help": "Eintrag auswählen, um das Dokument zu öffnen.",
+    "results": "Ausgewählte Terminal-Datei"
+  },
+  "platform": {
+    "title": "Azure, Kubernetes & Cloud-Security | Hamza Hedhly",
+    "description": "Erfahrung mit Azure, AKS, Kubernetes, Infrastructure as Code, Terraform, Ansible und wiederverwendbaren Cloud-Plattformen.",
+    "heading": "Cloud-Plattformen mit nachvollziehbaren Änderungen.",
+    "intro": "Sichere Cloud-Architektur, Infrastructure as Code und Kubernetes-Betrieb – mit transparenten Änderungen über den gesamten Plattform-Lebenszyklus.",
+    "skillsHeading": "Plattform & Infrastruktur",
+    "outcomesHeading": "Plattform im Einsatz",
+    "moreHeading": "Weiter im Portfolio",
+    "project1": "Mit Terraform und Terraform Enterprise standardisierte ich die Bereitstellung von Azure-Infrastruktur. Wiederverwendbare IaC-Module und geregelte Reviews machen Änderungen transparenter und sicherer.",
+    "project2": "Ich baute AKS-Plattformen mit Helm und Argo CD für durchgängige GitOps-Prozesse. Teams erhalten nachvollziehbare Releases, konsistente Deployments und klare Rollback-Pfade.",
+    "moreAutomation": "Automatisierung & Engineering",
+    "moreExperience": "Erfahrung & Zertifizierungen"
+  },
+  "automation": {
+    "title": "CI/CD, GitOps & Automation | Hamza Hedhly",
+    "description": "Erfahrung mit GitLab CI/CD, Ansible, Jenkins, Argo CD, Observability und Software Engineering.",
+    "heading": "Sichere Lieferung, die Teams nachvollziehen können.",
+    "intro": "Automatisierte Build- und Bereitstellungsprozesse, klare Betriebssignale und Software Engineering, das Infrastrukturentscheidungen in den Teamalltag einbettet.",
+    "skillsHeading": "Delivery & Engineering",
+    "outcomesHeading": "Automatisierung im Einsatz",
+    "project": "Ich entwickelte GitLab-CI/CD-Pipelines und Ansible-Automatisierung, um Build-, Prüf- und Bereitstellungsprozesse zu standardisieren, manuelle Arbeit zu reduzieren und sichere Releases zu beschleunigen.",
+    "relatedHeading": "Verwandte Bereiche",
+    "platformLink": "Cloud, Kubernetes & Security",
+    "experienceLink": "Erfahrung & Zertifizierungen"
+  },
+  "experience": {
+    "title": "Berufserfahrung & Zertifizierungen | Hamza Hedhly",
+    "description": "Berufserfahrung im Cloud- und Plattform-Engineering, DevOps und Software Engineering sowie Kubernetes-, Terraform- und AWS-Zertifizierungen.",
+    "heading": "Technische Tiefe. Pragmatische Umsetzung.",
+    "intro": "Vom Backend Engineering über DevOps bis zum Cloud- und Plattform-Engineering.",
+    "principleHeading": "Mein Arbeitsprinzip",
+    "principle": "Automatisierung ist dann gut, wenn sie Komplexität reduziert und Teams echte Geschwindigkeit gibt.",
+    "timelineHeading": "Berufserfahrung",
+    "present": "Heute",
+    "certHeading": "Zertifizierungen",
+    "certIntro": "Praktische Projekterfahrung und anerkannte Prüfungen in Kubernetes, Terraform und AWS.",
+    "outcomesLink": "Projektergebnisse",
+    "automationLink": "Automatisierung & Engineering"
+  },
+  "profile": {
+    "title": "Profil & Kontakt | Hamza Hedhly, DevSecOps Engineer",
+    "description": "DevSecOps Engineer Hamza Hedhly aus Düsseldorf: Profil, Arbeitsprinzipien, Cloud-Engineering-Schwerpunkte und Kontakt.",
+    "heading": "Cloud-Engineering mit Fokus auf zuverlässigen Betrieb.",
+    "intro": "Ich bringe Softwareentwicklung, Cloud-Infrastruktur und Betrieb näher zusammen. Mein Schwerpunkt liegt auf sicheren Azure- und Kubernetes-Plattformen, Infrastructure as Code und nachvollziehbaren Deployments.",
+    "principleHeading": "Mein Arbeitsprinzip",
+    "principle": "Automatisierung ist dann gut, wenn sie Komplexität reduziert und Teams echte Geschwindigkeit gibt.",
+    "expertiseHeading": "Fachgebiete",
+    "socialHeading": "Im Web",
+    "contactHeading": "Direkt Kontakt aufnehmen.",
+    "contactIntro": "Schreib mir über eine aktuelle Plattform-, Cloud- oder DevOps-Herausforderung.",
+    "locationLabel": "Standort",
+    "linksHeading": "Mehr entdecken"
+  },
+  "contact": {
+    "reveal": "Adresse anzeigen",
+    "revealed": "E-Mail-Adresse angezeigt.",
+    "copy": "Adresse kopieren",
+    "copied": "E-Mail-Adresse in die Zwischenablage kopiert.",
+    "copyError": "Kopieren nicht möglich. Du kannst die Adresse markieren und manuell kopieren.",
+    "emailLink": "E-Mail schreiben",
+    "failed": "Die Adresse konnte gerade nicht geladen werden. Bitte versuche es noch einmal.",
+    "retry": "Erneut versuchen",
+    "noScript": "Um die E-Mail-Adresse anzuzeigen, JavaScript aktivieren. Alternativ kannst du mich auf LinkedIn kontaktieren.",
+    "contactLabel": "E-Mail-Adresse",
+    "linkedin": "Auf LinkedIn kontaktieren",
+    "github": "GitHub ansehen"
+  },
+  "ui": {
+    "home": "Hamza Hedhly – Startseite",
+    "topbar": "Terminal-Navigation",
+    "theme": "Farbschema",
+    "darkTheme": "Ayu Dark",
+    "lightTheme": "Ayu Light",
+    "language": "Sprache auswählen",
+    "nav": "Sprache",
+    "exit": "Exit – zurück zur Startseite",
+    "skip": "Zum Inhalt springen",
+    "backToMenu": "Zurück zum Menü",
+    "explore": "Terminal-Menü öffnen",
+    "continue": "Zum nächsten Bereich",
+    "certLogo": "Zertifikatslogo: {provider}",
+    "footer": "Hamza Hedhly. Entwickelt für zuverlässige Systeme.",
+    "documentLoading": "Dokument wird geladen.",
+    "documentOpened": "Geöffnet: {label}.",
+    "menuRestored": "Dokument geschlossen. Menü bereit."
+  }
+}

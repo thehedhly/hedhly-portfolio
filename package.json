@@ -1,0 +1,14 @@
+{
+  "name": "hedhly-portfolio",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && node scripts/serve.mjs --dev",
+    "preview": "node scripts/serve.mjs",
+    "check": "npm run build && node --test"
+  }
+}
