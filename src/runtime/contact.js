@@ -17,9 +17,11 @@
     let address = '';
     let pending = false;
 
+    // Clearing first and setting the text after a short delay makes repeated messages announce again.
+    // A timeout is used instead of requestAnimationFrame, which browsers pause in background tabs.
     const announce = message => {
       status.textContent = '';
-      window.requestAnimationFrame(() => { status.textContent = message; });
+      window.setTimeout(() => { status.textContent = message; }, 50);
     };
 
     const showError = () => {

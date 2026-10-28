@@ -108,7 +108,6 @@ const cssBytes = Buffer.from(`${await readFile(source('src/styles/tokens.css'), 
 const javascript = new Map([
   ['theme-bootstrap', 'src/runtime/theme-init.js'],
   ['theme', 'src/runtime/theme.js'],
-  ['home', 'src/runtime/home.js'],
   ['menu', 'src/runtime/menu.js'],
   ['contact', 'src/runtime/contact.js'],
   ['contact-address', 'src/runtime/contact-address.mjs'],

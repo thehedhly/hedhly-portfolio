@@ -194,3 +194,27 @@ test('English certification copy names AWS, not Azure', async () => {
   assert.match(en.experience.certIntro, /AWS/);
   assert.doesNotMatch(en.experience.certIntro, /Azure/);
 });
+
+test('interaction markup works under the CSP: no inline style attributes, typed commands and toggles where expected', async () => {
+  const files = (await readdir(dist, { recursive: true })).filter(file => file.endsWith('.html'));
+  for (const file of files) {
+    const html = await read(file);
+    assert.doesNotMatch(html, / style="/, `${file} has an inline style attribute`);
+    assert.doesNotMatch(html, /home\.[a-f0-9]{12}\.js/, `${file} references the removed home script`);
+  }
+  for (const locale of ['de', 'en']) {
+    const explore = await read(`${locale}/explore/index.html`);
+    assert.match(explore, /data-shortcut-toggle[^>]* hidden>/, `${locale} explore toggle starts hidden`);
+    assert.doesNotMatch(explore, /data-typed/, `${locale} overview does not type`);
+    const platform = await read(`${locale}/explore/platform/index.html`);
+    assert.match(platform, /<span class="cmd-typed" data-typed>cat platform\.md<\/span>/, `${locale} platform command`);
+  }
+});
+
+test('runtime scripts parse as classic scripts', async () => {
+  const vm = await import('node:vm');
+  for (const name of ['theme-init', 'theme', 'menu', 'contact']) {
+    const source = await readFile(new URL(`../src/runtime/${name}.js`, import.meta.url), 'utf8');
+    assert.doesNotThrow(() => new vm.Script(source), name);
+  }
+});

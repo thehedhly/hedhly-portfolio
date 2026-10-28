@@ -337,7 +337,7 @@ This is allowed because it reproduces the reference's instant swap. It must:
 - Fetch the real static page, take its `.output` and menu state, and update `document.title`, `aria-current`, the DE/EN link targets, and the canonical/alternate tags. Crawlers never depend on this.
 - Use `pushState`, restore on `popstate`, and abort any request still in flight.
 - Fall back to full navigation on any error or non-200 response.
-- Move focus to the new output's `<h2>` (`tabindex="-1"`) and announce the change politely.
+- Focus stays on the activated menu link (deviation from the earlier draft): number keys only work while focus is inside the menu, so moving focus into the output would stop repeated presses. The polite status line announces the change instead.
 - Never scroll the page unless the output's heading is out of view.
 
 Not allowed: `role="menu"`, `role="application"`, or swapping content without a real URL.

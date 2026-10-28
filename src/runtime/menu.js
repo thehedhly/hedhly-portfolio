@@ -7,10 +7,44 @@
   const status = document.querySelector('[data-navigation-status]');
   if (!menu || !region || !overviewHeading || !status) return;
 
+  const shortcutStorageKey = 'hedhly-shortcuts';
+  const shortcutToggle = document.querySelector('[data-shortcut-toggle]');
   const links = Array.from(menu.querySelectorAll('.menu-link'));
   let activePage = document.body.dataset.page;
   let controller;
   let navigationVersion = 0;
+
+  // Number shortcuts are on by default. The visitor can switch them off; the choice is kept locally.
+  const readShortcutsEnabled = () => {
+    try {
+      return window.localStorage.getItem(shortcutStorageKey) !== 'off';
+    } catch {
+      return true;
+    }
+  };
+  let shortcutsEnabled = readShortcutsEnabled();
+
+  const saveShortcutsEnabled = enabled => {
+    try {
+      window.localStorage.setItem(shortcutStorageKey, enabled ? 'on' : 'off');
+    } catch {
+      // The toggle still works for this page if storage is blocked.
+    }
+  };
+
+  const syncShortcutToggle = () => {
+    if (!shortcutToggle) return;
+    shortcutToggle.hidden = false;
+    shortcutToggle.setAttribute('aria-pressed', String(shortcutsEnabled));
+  };
+
+  // Sets the length used by the CSS typing animation. CSSOM is allowed by the CSP, unlike inline style attributes.
+  const prepareTyping = root => {
+    root.querySelectorAll('[data-typed]').forEach(element => {
+      element.style.setProperty('--len', String(element.textContent.trim().length));
+      element.classList.add('is-typing');
+    });
+  };
 
   const navigate = async (url, pushHistory = true) => {
     if (url.origin !== window.location.origin) return;
@@ -33,6 +67,7 @@
       // Only the selected document changes. The introduction, revealed contact,
       // menu focus, theme, and scroll position stay in place like a terminal.
       region.replaceChildren(...Array.from(nextRegion.childNodes, node => document.importNode(node, true)));
+      prepareTyping(region);
       overviewHeading.replaceChildren(...Array.from(nextHeading.childNodes, node => document.importNode(node, true)));
       links.forEach(link => {
         const selected = link.dataset.documentId === nextPage;
@@ -75,14 +110,37 @@
     navigate(new URL(reset.href));
     links[0]?.focus({ preventScroll: true });
   });
-  menu.addEventListener('keydown', event => {
-    if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+
+  // Shortcuts apply only while focus is inside the menu or the open document, never in form controls.
+  // Focus stays on the menu so repeated number presses keep working.
+  const handleShortcut = event => {
+    if (!shortcutsEnabled || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     if (event.target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
-    if (!/^[1-4]$/.test(event.key)) return;
-    event.preventDefault();
-    const link = links[Number(event.key) - 1];
-    link?.focus({ preventScroll: true });
-    link?.click();
+
+    if (/^[1-4]$/.test(event.key)) {
+      event.preventDefault();
+      const link = links[Number(event.key) - 1];
+      link?.focus({ preventScroll: true });
+      link?.click();
+      return;
+    }
+    if ((event.key === '0' || event.key === 'Escape') && activePage !== 'explore') {
+      event.preventDefault();
+      links[0]?.focus({ preventScroll: true });
+      navigate(new URL(menu.dataset.overviewUrl, window.location.href));
+    }
+  };
+  menu.addEventListener('keydown', handleShortcut);
+  region.addEventListener('keydown', handleShortcut);
+
+  shortcutToggle?.addEventListener('click', () => {
+    shortcutsEnabled = !shortcutsEnabled;
+    saveShortcutsEnabled(shortcutsEnabled);
+    syncShortcutToggle();
   });
+
   window.addEventListener('popstate', () => navigate(new URL(window.location.href), false));
+
+  prepareTyping(region);
+  syncShortcutToggle();
 })();

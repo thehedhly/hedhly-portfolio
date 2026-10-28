@@ -54,7 +54,7 @@ function emailReveal(locale, c, contact, options = {}) {
   })}>
     <p class="contact-reveal__initial" data-address-prompt><span>${escapeHtml(c.emailPrompt || c.contactLabel)} </span><button class="text-action" data-reveal-address type="button">${escapeHtml(contact.reveal)}</button></p>
     <div class="contact-reveal__result" data-address-result hidden>
-      <span class="email-address" data-address-text aria-label="${escapeHtml(contact.contactLabel)}"></span>
+      <span class="email-address" data-address-text></span>
       <button class="text-action" data-copy-address type="button">${escapeHtml(contact.copy)}</button>
       <a class="text-action" data-email-link hidden>${escapeHtml(contact.emailLink)} <span aria-hidden="true">↗</span></a>
     </div>
@@ -69,6 +69,11 @@ function emailReveal(locale, c, contact, options = {}) {
 
 function sectionCommand(command) {
   return `<p class="command-line"><span class="command-prompt">hamza@hedhly:~/explore$</span> <span>${escapeHtml(command)}</span></p>`;
+}
+
+// The typing animation is enabled by runtime/menu.js; without JavaScript the command is plain text.
+function typedCommand(command) {
+  return `<p class="command-line"><span class="command-prompt">hamza@hedhly:~/explore$</span> <span class="cmd-typed" data-typed>${escapeHtml(command)}</span></p>`;
 }
 
 function markdownHeading(level, text, attributes = {}) {
@@ -107,7 +112,7 @@ function socialLinks() {
     { rel: 'noopener noreferrer' })}</li>`).join('')}</ul>`;
 }
 
-function menu(locale, copy, activeId) {
+function menu(locale, copy, activeId, ui) {
   return `<div class="menu-region" data-menu data-overview-url="${routePath('explore', locale)}" tabindex="-1">
     <p class="visually-hidden" id="shortcut-help">${escapeHtml(copy.shortcutHelp)}</p>
     <ol class="terminal-menu">${copy.menu.map((item, index) => link(routePath(item.id, locale),
@@ -118,6 +123,7 @@ function menu(locale, copy, activeId) {
       'aria-describedby': 'shortcut-help',
       'aria-keyshortcuts': String(index + 1),
     })).map(markup => `<li>${markup}</li>`).join('')}</ol>
+    <p class="menu-tools"><button class="text-action shortcut-toggle" type="button" data-shortcut-toggle aria-pressed="true" hidden>${escapeHtml(ui.shortcutsLabel)}</button></p>
   </div>`;
 }
 
@@ -163,7 +169,7 @@ function documentBody(locale, routeId, content) {
       </nav>`;
   }
   return `<article class="document-output" aria-labelledby="document-heading">
-    ${sectionCommand(`cat ${menuItem.file}`)}
+    ${typedCommand(`cat ${menuItem.file}`)}
     <div class="document-copy">
       ${markdownHeading(1, page.heading, { id: 'document-heading' })}
       <p>${escapeHtml(page.intro)}</p>
@@ -188,7 +194,7 @@ function exploreBody(locale, content, activeId = null) {
       ${sectionCommand(copy.menuCommand)}
       <div class="terminal-output">
         <h2 class="menu-heading" id="menu-heading">${escapeHtml(copy.menuHeading)}</h2>
-        ${menu(locale, copy, activeId)}
+        ${menu(locale, copy, activeId, content.ui)}
       </div>
     </section>
     <div data-document-region>${activeId ? documentBody(locale, activeId, content) : ''}</div>
@@ -424,7 +430,6 @@ export function renderHome({ locale, content, assets, theme = site.defaultTheme,
   ${topbar(locale, 'home', content.ui, theme)}
   ${homeBody(locale, content)}
   <script src="${assets.theme}" defer></script>
-  <script src="${assets.home}" defer></script>
 </body>
 </html>`;
   if (!isRoot) return markup;

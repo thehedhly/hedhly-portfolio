@@ -178,6 +178,7 @@
     "footer": "Hamza Hedhly. Engineered for reliable systems.",
     "documentLoading": "Loading document.",
     "documentOpened": "Opened: {label}.",
-    "menuRestored": "Document closed. Menu ready."
+    "menuRestored": "Document closed. Menu ready.",
+    "shortcutsLabel": "Shortcuts 1–4"
   }
 }

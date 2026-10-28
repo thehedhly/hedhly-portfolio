@@ -209,6 +209,10 @@ button:disabled, select:disabled { cursor: default; }
 .cursor { color: var(--prompt); animation: cursor-blink 1s steps(1, end) 4; }
 @keyframes cursor-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 @keyframes document-arrive { from { opacity: .65; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+/* Typed command: 18 ms per character. The text stays in the DOM; the animation only reveals it. */
+.cmd-typed.is-typing { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; width: calc(var(--len) * 1ch + 1px); animation: type-in calc(var(--len) * 18ms) steps(var(--len)) both; }
+@keyframes type-in { from { width: 0; } }
+.menu-tools { margin: 16px 0 0; }
 
 @media (max-width: 767px) {
   .terminal-screen { padding: 96px 24px 40px; }
@@ -236,6 +240,7 @@ button:disabled, select:disabled { cursor: default; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .cmd-typed.is-typing { width: auto; overflow: visible; }
 }
 @media (forced-colors: active) {
   .menu-link--current { outline: 1px solid Highlight; }

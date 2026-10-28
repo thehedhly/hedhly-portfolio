@@ -178,6 +178,7 @@
     "footer": "Hamza Hedhly. Entwickelt für zuverlässige Systeme.",
     "documentLoading": "Dokument wird geladen.",
     "documentOpened": "Geöffnet: {label}.",
-    "menuRestored": "Dokument geschlossen. Menü bereit."
+    "menuRestored": "Dokument geschlossen. Menü bereit.",
+    "shortcutsLabel": "Tastenkürzel 1–4"
   }
 }
