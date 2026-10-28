@@ -1,5 +1,5 @@
-/ /de/ 301
-/index.html /de/ 301
-/error.html /404.html 301!
+# Cloudflare Pages path redirect. The destination is absolute so the apex
+# origin remains canonical even when a request arrives on another host.
+/ https://hedhly.com/de/ 301
 /de /de/ 301
 /en /en/ 301

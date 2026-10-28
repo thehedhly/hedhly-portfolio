@@ -45,10 +45,6 @@ const server = createServer(async (request, response) => {
     response.writeHead(301, { Location: '/de/' }).end();
     return;
   }
-  if (pathname === '/error.html') {
-    response.writeHead(301, { Location: '/404.html' }).end();
-    return;
-  }
   if (['/de', '/en'].includes(pathname)) {
     response.writeHead(301, { Location: `${pathname}/` }).end();
     return;

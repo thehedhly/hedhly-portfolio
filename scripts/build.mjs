@@ -48,7 +48,7 @@ function xmlEscape(value) {
 function buildSitemap() {
   const blocks = sitemapRoutes().map(({ routeId, path }) => {
     const alternates = locales.map(locale => `      <xhtml:link rel="alternate" hreflang="${locale}" href="${site.origin}${routePath(routeId, locale)}" />`).join('\n');
-    return `  <url>\n    <loc>${xmlEscape(`${site.origin}${path}`)}</loc>\n${alternates}\n      <xhtml:link rel="alternate" hreflang="x-default" href="${site.origin}/" />\n  </url>`;
+    return `  <url>\n    <loc>${xmlEscape(`${site.origin}${path}`)}</loc>\n${alternates}\n      <xhtml:link rel="alternate" hreflang="x-default" href="${site.origin}${routePath(routeId, 'de')}" />\n  </url>`;
   }).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${blocks}\n</urlset>\n`;
 }
@@ -123,7 +123,7 @@ for (const [key, path] of javascript) {
   await writeFileAt(target(assets[outputKey].slice(1)), bytes);
 }
 
-for (const path of ['logo.ico', 'my-avatar.png', 'og.png', 'logo-kubernetes.svg', 'logo-terraform.svg', 'logo-aws.png']) {
+for (const path of ['brand-avatar.png', 'my-avatar.png', 'og-de.png', 'og-editorial.png', 'logo-kubernetes.svg', 'logo-terraform.svg', 'logo-aws.png']) {
   await cp(source(`assets/images/${path}`), target(`assets/images/${path}`));
 }
 

@@ -46,6 +46,10 @@ test('build emits every German-default and English static route', async () => {
       const html = await response.text();
       assert.match(html, new RegExp(`<html lang="${locale}"`));
       assert.ok(html.includes(`<link rel="canonical" href="${site.origin}${path}">`), path);
+      assert.ok(html.includes(`<link rel="alternate" hreflang="x-default" href="${site.origin}${routePath(route.id, 'de')}">`), `${path} x-default`);
+      const socialImage = locale === 'de' ? 'og-de.png' : 'og-editorial.png';
+      assert.ok(html.includes(`<meta property="og:image" content="${site.origin}/assets/images/${socialImage}">`), `${path} social image`);
+      assert.match(html, /rel="icon" type="image\/png" href="\/assets\/images\/brand-avatar\.png"/);
       assert.match(html, /type="application\/ld\+json"/);
       assert.match(html, /data-theme-choice/);
       if (route.id !== 'home') {
@@ -72,6 +76,8 @@ test('redirect, robots, sitemap, AI text guide and response headers are present'
     assert.ok(sitemap.includes(`${site.origin}${routePath(route.id, 'de')}`));
     assert.ok(sitemap.includes(`${site.origin}${routePath(route.id, 'en')}`));
   }
+  assert.match(sitemap, /hreflang="x-default" href="https:\/\/hedhly\.com\/de\/"/);
+  assert.match(await read('index.html'), /<link rel="canonical" href="https:\/\/hedhly\.com\/de\/">/);
   assert.match(await read('llms.txt'), /^# Hamza Hedhly/m);
   assert.match(await read('index.txt'), /## Projektergebnisse/);
   assert.match(await read('en/index.txt'), /## Selected outcomes/);

@@ -292,15 +292,18 @@ function languageAlternates(routeId) {
   const entries = [
     ['de', `${site.origin}${routePath(canonicalRoute, 'de')}`],
     ['en', `${site.origin}${routePath(canonicalRoute, 'en')}`],
-    ['x-default', `${site.origin}/`],
+    ['x-default', `${site.origin}${routePath(canonicalRoute, 'de')}`],
   ];
   const links = entries.map(([lang, href]) => `<link rel="alternate" hreflang="${lang}" href="${href}">`).join('\n    ');
   return links;
 }
 
-function documentHead({ routeId, locale, canonicalPath, title, description, assets, isRoot = false, noindex = false, ogImage = '/assets/images/og.png' }) {
+function documentHead({ routeId, locale, canonicalPath, title, description, assets, isRoot = false, noindex = false }) {
   const canonical = `${site.origin}${canonicalPath}`;
-  const image = `${site.origin}${ogImage}`;
+  const image = `${site.origin}${locale === 'de' ? '/assets/images/og-de.png' : '/assets/images/og-editorial.png'}`;
+  const imageAlt = locale === 'de'
+    ? 'Hamza Hedhly, DevSecOps und Azure Cloud Engineer in Düsseldorf'
+    : 'Hamza Hedhly, DevSecOps and Azure Cloud Engineer in Düsseldorf';
   const person = structuredData(routeId, locale, canonical, title);
   const serializedSchema = JSON.stringify(person).replace(/</g, '\\u003c');
   const ogLocale = locale === 'de' ? 'de_DE' : 'en_US';
@@ -318,7 +321,7 @@ function documentHead({ routeId, locale, canonicalPath, title, description, asse
   <title>${escapeHtml(title)}</title>
   <link rel="canonical" href="${canonical}">
   ${languageAlternates(routeId)}
-  <link rel="icon" type="image/x-icon" href="/assets/images/logo.ico">
+  <link rel="icon" type="image/png" href="/assets/images/brand-avatar.png">
   <link rel="preload" href="${assets.css}" as="style">
   <link rel="stylesheet" href="${assets.css}">
   <script src="${assets.themeInit}" data-theme-bootstrap></script>
@@ -333,7 +336,7 @@ function documentHead({ routeId, locale, canonicalPath, title, description, asse
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Hamza Hedhly, DevSecOps and Azure Cloud Engineer in Düsseldorf">
+  <meta property="og:image:alt" content="${escapeHtml(imageAlt)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
@@ -367,7 +370,6 @@ export function renderHome({ locale, content, assets, theme = site.defaultTheme,
 </html>`;
   if (!isRoot) return markup;
   return markup
-    .replace(`<link rel="canonical" href="${site.origin}${routePath('home', locale)}">`, `<link rel="canonical" href="${site.origin}/">`)
     .replace('<head>', '<head>\n  <meta http-equiv="refresh" content="0; url=/de/">');
 }
 
