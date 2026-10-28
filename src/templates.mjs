@@ -79,8 +79,8 @@ function technologies(items, locale) {
   return `<p class="technology-line"><span>${locale === 'de' ? 'Technologien' : 'Technologies'}:</span> ${items.map(escapeHtml).join(', ')}</p>`;
 }
 
-function capabilityList(locale, sectionId) {
-  return `<ul class="capability-list">${shared.expertise.filter(item => item.section === sectionId).map(item => `<li>
+function capabilityList(locale, sectionId = null) {
+  return `<ul class="capability-list">${shared.expertise.filter(item => !sectionId || item.section === sectionId).map(item => `<li>
     ${markdownHeading(3, recordValue(item.title, locale))}
     <p>${escapeHtml(recordValue(item.summary, locale))}</p>
     ${technologies(item.tags, locale)}
@@ -197,30 +197,85 @@ function exploreBody(locale, content, activeId = null) {
   </main>`;
 }
 
+function homeSummaries(locale, content) {
+  const copy = content.home;
+  const [platform, automation, experience] = content.explore.menu;
+  const documentLinks = (label, items) => `<nav class="document-links" aria-label="${escapeHtml(label)}">${items.map(([route, text]) => link(routePath(route, locale), escapeHtml(text))).join('')}</nav>`;
+  const outcomes = shared.outcomes.map(item => `<li>
+      ${markdownHeading(3, recordValue(item.title, locale))}
+      <p>${escapeHtml(recordValue(item.details, locale))}</p>
+    </li>`).join('');
+  return `<div class="home-summaries">
+    <section class="summary-section" id="expertise" aria-labelledby="expertise-heading">
+      <div class="document-copy">
+        <p class="summary-kicker">${escapeHtml(copy.expertiseKicker)}</p>
+        ${markdownHeading(2, copy.expertiseHeading, { id: 'expertise-heading' })}
+        <p>${escapeHtml(copy.expertiseLead)}</p>
+        ${capabilityList(locale)}
+        ${documentLinks(copy.expertiseHeading, [['platform', platform.label], ['automation', automation.label]])}
+      </div>
+    </section>
+    <section class="summary-section" id="experience" aria-labelledby="experience-heading">
+      <div class="document-copy">
+        <p class="summary-kicker">${escapeHtml(copy.experienceKicker)}</p>
+        ${markdownHeading(2, copy.experienceHeading, { id: 'experience-heading' })}
+        <p>${escapeHtml(copy.experienceSummary)}</p>
+        ${experienceList(locale, content.experience)}
+        ${documentLinks(copy.experienceHeading, [['experience', experience.label]])}
+      </div>
+    </section>
+    <section class="summary-section" id="outcomes" aria-labelledby="outcomes-heading">
+      <div class="document-copy">
+        <p class="summary-kicker">${escapeHtml(copy.outcomesKicker)}</p>
+        ${markdownHeading(2, copy.outcomesHeading, { id: 'outcomes-heading' })}
+        <p>${escapeHtml(copy.outcomesLead)}</p>
+        <ul class="capability-list">${outcomes}</ul>
+      </div>
+    </section>
+    <section class="summary-section" id="certifications" aria-labelledby="certifications-heading">
+      <div class="document-copy">
+        <p class="summary-kicker">${escapeHtml(copy.certKicker)}</p>
+        ${markdownHeading(2, copy.certHeading, { id: 'certifications-heading' })}
+        <p>${escapeHtml(copy.certSummary)}</p>
+        ${credentials()}
+      </div>
+    </section>
+    <section class="summary-section" id="contact" aria-labelledby="contact-heading">
+      <div class="document-copy">
+        <p class="summary-kicker">${escapeHtml(copy.contactKicker)}</p>
+        ${markdownHeading(2, copy.contactHeading, { id: 'contact-heading' })}
+        <p>${escapeHtml(copy.contactLead)}</p>
+        ${socialLinks()}
+        <p>${link(routePath('profile', locale), escapeHtml(copy.profileLink), { class: 'text-action' })}</p>
+      </div>
+    </section>
+    ${link(routePath('explore', locale), `← ${escapeHtml(copy.allAreas)}`, { class: 'back-to-menu' })}
+  </div>`;
+}
+
 function homeBody(locale, content) {
   const copy = content.home;
   const hiring = site.availability === 'for-hire';
-  const legacyRoutes = [
-    ['expertise', 'platform', content.platform.heading],
-    ['experience', 'experience', content.experience.timelineHeading],
-    ['outcomes', 'platform', copy.outcomesHeading, '#outcomes'],
-    ['certifications', 'experience', copy.certHeading, '#certifications'],
-    ['contact', 'profile', copy.profileLink],
-  ];
   // CTA and status text are controlled by site.availability in src/config/site.mjs
-  return `<main id="main" tabindex="-1" class="entry-screen">
-    <div class="entry-content" id="top">
-      <p class="entry-status"><span class="status-dot" aria-hidden="true"></span>${escapeHtml(hiring ? copy.statusHire : copy.statusExplore)}</p>
-      <h1>${escapeHtml(site.name)}<span class="entry-cursor" aria-hidden="true">▊</span></h1>
-      <p class="entry-role">${escapeHtml(shared.profile.role[locale])} · ${escapeHtml(shared.profile.locationName)}</p>
-      <p class="entry-lead">${escapeHtml(copy.lead)}</p>
-      ${link(routePath('explore', locale), `<span aria-hidden="true">→</span> ${escapeHtml(hiring ? copy.hireCta : copy.explore)}`, {
-    class: 'entry-action', 'aria-label': hiring ? copy.hireLabel : copy.exploreLabel,
-  })}
-      ${link(routePath('profile', locale), escapeHtml(copy.profileLink), { class: 'entry-secondary' })}
+  return `<main id="main" tabindex="-1" class="home">
+    <div class="entry-screen">
+      <div class="entry-content" id="top">
+        <p class="entry-status"><span class="status-dot" aria-hidden="true"></span>${escapeHtml(hiring ? copy.statusHire : copy.statusExplore)}</p>
+        <h1>${escapeHtml(site.name)}<span class="entry-cursor" aria-hidden="true">▊</span></h1>
+        <p class="entry-role">${escapeHtml(shared.profile.role[locale])} · ${escapeHtml(shared.profile.locationName)}</p>
+        <p class="entry-lead">${escapeHtml(copy.lead)}</p>
+        ${link(routePath('explore', locale), `<span aria-hidden="true">→</span> ${escapeHtml(hiring ? copy.hireCta : copy.explore)}`, {
+          class: 'entry-action', 'aria-label': hiring ? copy.hireLabel : copy.exploreLabel,
+        })}
+        ${link(routePath('profile', locale), escapeHtml(copy.profileLink), { class: 'entry-secondary' })}
+      </div>
     </div>
-    <nav class="legacy-anchor-links" aria-label="${escapeHtml(content.ui.continue)}">${legacyRoutes.map(([id, route, label, hash = '']) => link(`${routePath(route, locale)}${hash}`, escapeHtml(label), { id, 'data-legacy-link': true })).join('')}</nav>
-  </main>`;
+    ${homeSummaries(locale, content)}
+  </main>
+  <footer class="site-footer">
+    <p>${escapeHtml(copy.footer)}</p>
+    ${link('#top', escapeHtml(copy.backTop))}
+  </footer>`;
 }
 
 function notFoundBody(locale, content) {

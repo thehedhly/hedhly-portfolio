@@ -78,11 +78,9 @@ button:disabled, select:disabled { cursor: default; }
 .language-divider { opacity: .65; }
 .exit-link { white-space: nowrap; }
 .terminal-bar--entry {
-  position: absolute;
-  inset: 0 0 auto;
   justify-content: flex-end;
   padding: 12px 20px;
-  background: transparent;
+  background: var(--canvas);
   border: 0;
 }
 
@@ -127,9 +125,12 @@ button:disabled, select:disabled { cursor: default; }
   transition: color 140ms, border-color 140ms, background 140ms, box-shadow 140ms;
 }
 .entry-action:hover { color: var(--text-strong); border-color: var(--menu-accent); box-shadow: 0 0 14px var(--action-wash); }
-.legacy-anchor-links { position: absolute; inset: auto 24px 24px; }
-.legacy-anchor-links a { display: none; }
-.legacy-anchor-links a:target { display: inline-block; padding: 8px; }
+.home-summaries { width: min(100%, 1000px); margin-inline: auto; padding: 48px 64px 32px; }
+.summary-section { margin-top: 72px; scroll-margin-top: 32px; }
+.summary-section .document-copy > p:not(.summary-kicker) { max-width: 65ch; }
+.summary-kicker { margin: 0 0 4px; color: var(--text-quiet); font-size: 12px; letter-spacing: .09em; text-transform: uppercase; }
+.site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; width: min(100%, 1000px); margin-inline: auto; padding: 32px 64px 48px; border-top: 1px solid var(--line); color: var(--text-quiet); font-size: 13px; }
+.site-footer p { margin: 0; }
 
 /* Match the reference's single, indented transcript and generous upper space. */
 .terminal-screen { width: min(100%, 1000px); margin-inline: auto; padding: 300px 64px 48px; }
@@ -211,6 +212,7 @@ button:disabled, select:disabled { cursor: default; }
 
 @media (max-width: 767px) {
   .terminal-screen { padding: 96px 24px 40px; }
+  .home-summaries, .site-footer { padding-inline: 24px; }
   .terminal-output, .document-copy { margin-left: 16px; }
   .menu-link { min-height: 40px; padding-block: 7px; }
 }
@@ -226,6 +228,7 @@ button:disabled, select:disabled { cursor: default; }
 }
 @media (max-width: 360px) {
   .terminal-screen { padding-inline: 16px; }
+  .home-summaries, .site-footer { padding-inline: 16px; }
   .terminal-output, .document-copy { margin-left: 12px; }
 }
 @media (max-height: 700px) and (min-width: 768px) {

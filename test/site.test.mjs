@@ -139,3 +139,58 @@ test('structured data parses and local links point to generated routes or assets
     }
   }
 });
+
+test('homepage keeps the legacy summary anchors as real sections in both languages', async () => {
+  for (const locale of ['de', 'en']) {
+    const html = await read(`${locale}/index.html`);
+    for (const id of ['top', 'main', 'expertise', 'experience', 'outcomes', 'certifications', 'contact']) {
+      assert.match(html, new RegExp(`<(?:section|div|main)[^>]* id="${id}"`), `${locale} #${id}`);
+    }
+    assert.equal((html.match(/<h1\b/g) || []).length, 1, `${locale} home h1`);
+  }
+});
+
+test('every fragment link resolves to an id on its target page', async () => {
+  const files = (await readdir(dist, { recursive: true })).filter(file => file.endsWith('.html'));
+  const missing = [];
+  for (const file of files) {
+    const html = await read(file);
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      if (!href.includes('#') || /^(?:https?:|mailto:|tel:)/i.test(href)) continue;
+      const [pathPart, fragment] = href.split('#');
+      if (!fragment) continue;
+      const target = pathPart === '' ? file : pathPart.replace(/^\//, '').replace(/\/$/, '/index.html').replace(/^$/, 'index.html');
+      const targetHtml = pathPart === '' ? html : await read(target).catch(() => '');
+      if (!new RegExp(` id="${fragment}"`).test(targetHtml)) missing.push(`${file} -> ${href}`);
+    }
+  }
+  assert.deepEqual(missing, []);
+});
+
+test('migrated evidence appears in the built German and English pages', async () => {
+  const { shared } = await import('../src/content/shared.mjs');
+  for (const locale of ['de', 'en']) {
+    const home = await read(`${locale}/index.html`);
+    const experience = await read(`${locale}/explore/experience/index.html`);
+    const platform = await read(`${locale}/explore/platform/index.html`);
+    for (const outcome of shared.outcomes) {
+      const title = outcome.title[locale].replace(/&/g, '&amp;');
+      assert.ok(home.includes(title), `${locale} home lists outcome ${outcome.title[locale]}`);
+    }
+    for (const credential of shared.credentials) {
+      assert.ok(home.includes(credential.name), `${locale} home lists ${credential.name}`);
+      assert.ok(experience.includes(credential.name), `${locale} experience lists ${credential.name}`);
+    }
+    for (const entry of shared.experience) {
+      assert.ok(experience.includes(`datetime="${entry.start}"`), `${locale} experience starts ${entry.start}`);
+    }
+    assert.ok(platform.includes('id="outcomes"'), `${locale} platform outcomes`);
+  }
+});
+
+test('English certification copy names AWS, not Azure', async () => {
+  const en = JSON.parse(await readFile(new URL('../src/content/en.json', import.meta.url), 'utf8'));
+  assert.match(en.home.certSummary, /AWS/);
+  assert.match(en.experience.certIntro, /AWS/);
+  assert.doesNotMatch(en.experience.certIntro, /Azure/);
+});
