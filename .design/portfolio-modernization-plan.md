@@ -662,3 +662,27 @@ Build one vertical slice first (DE entry → menu → platform, both themes, dep
 | Status-line wording (§4.1) | Use the proposed copy unless the owner prefers other wording |
 
 Out of scope unless needed later: a contact relay, a CMS, case studies without source material, and analytics (`site.analytics: false`; if added, use cookieless analytics such as Cloudflare Web Analytics and update the privacy note).
+
+---
+
+## 16. Verification record (Phase 5, 28 October 2026)
+
+Method: a headless Chromium (Chrome for Testing 1228) driven by Playwright, run from a scratch folder outside the repository against the local preview of `dist/`. Results below were produced by that run; the script itself is not committed.
+
+| Check | Result |
+| --- | --- |
+| Keyboard, home | Tab order: skip link, theme select, DE, EN, CTA, profile link, menu links, credential links. Focus ring is visible (solid 2 px). Enter on the CTA opens `/de/explore/`. |
+| Keyboard, explore | All 11 focusable controls on the explore page are reachable with Tab. Keys 2 and 0 open and close documents. The shortcut toggle switches with Enter. Enter on Reveal shows the address and moves focus to Copy. The theme select changes the theme. |
+| Contrast, text (both themes) | 4 representative pages, 267 text elements checked per theme (534 in total). Minimum 8.58:1 in Ayu Dark and 5.68:1 in Ayu Light. No element fails 4.5:1 (3:1 for large text). |
+| Contrast, non-text | Control borders 3.56:1 (dark) and 5.93:1 (light), focus ring 13.3:1 and 5.93:1. All pass 3:1. |
+| Reduced motion | With the preference set: typed command, cursor blink and output fade are all `none`, and the full command is visible at once. Without it: `type-in`, `cursor-blink` and `document-arrive` run. |
+| Link check, internal | 18 internal and sitemap URLs return 200. Fragment and local-link tests pass in the suite. |
+| Link check, external | Credential and social links return 200 (HEAD, then GET). Note: `hedhly.com` URLs in canonicals and sitemap are production URLs; production still serves the old site and answers 200 for unknown paths, so this check cannot yet confirm the new pages. Re-run after cutover. |
+| Errors | No page errors in any run. |
+
+Not covered by this record:
+- VoiceOver and other screen readers. The accessibility-tree checks above are not a screen-reader test.
+- Browsers other than Chromium, and real mobile devices (only the 375 px emulation was checked).
+- Field performance and Lighthouse scores.
+- The production host: the soft-404 and discovery behaviour from §2.2 can only be checked after the Pages cutover.
+
