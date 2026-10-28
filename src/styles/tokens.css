@@ -1,0 +1,99 @@
+:root,
+:root[data-theme="ayu-dark"] {
+  color-scheme: dark;
+  --ayu-bg: #0b0e14;
+  --ayu-fg: #bfbdb6;
+  --ayu-selection: #1b3a5b;
+  --ayu-black: #1e232b;
+  --ayu-red: #ea6c73;
+  --ayu-green: #7fd962;
+  --ayu-yellow: #f9af4f;
+  --ayu-blue: #53bdfa;
+  --ayu-magenta: #cda1fa;
+  --ayu-cyan: #90e1c6;
+  --ayu-white: #c7c7c7;
+  --ayu-bright-black: #686868;
+  --ayu-bright-red: #f07178;
+  --ayu-bright-green: #aad94c;
+  --ayu-bright-yellow: #ffb454;
+  --ayu-bright-blue: #59c2ff;
+  --ayu-bright-magenta: #d2a6ff;
+  --ayu-bright-cyan: #95e6cb;
+  --ayu-bright-white: #ffffff;
+
+  --canvas: var(--ayu-bg);
+  --canvas-raised: #121720;
+  --canvas-inset: var(--ayu-black);
+  --text: var(--ayu-fg);
+  --text-strong: var(--ayu-bright-white);
+  --text-quiet: var(--ayu-fg);
+  --prompt: var(--ayu-blue);
+  --link: var(--ayu-blue);
+  --selected-bg: var(--ayu-selection);
+  --selected-text: var(--ayu-fg);
+  --action-fill: var(--ayu-yellow);
+  --menu-accent: var(--ayu-yellow);
+  --menu-number-text: var(--ayu-bg);
+  --action-label: var(--menu-accent);
+  --cursor: var(--ayu-blue);
+  --action-border: #8a6230; /* derived role colour: 3:1 boundary on canvas */
+  --action-wash: rgb(249 175 79 / 7%);
+  --action-text: var(--ayu-bg);
+  --line: #292f3a;
+  --line-strong: #4a5260;
+  --focus: var(--ayu-bright-cyan);
+  --status: var(--ayu-green);
+  --error: var(--ayu-bright-red);
+  --site-gutter: clamp(1rem, 4vw, 3rem);
+  --content-max: 72rem;
+  --reading-max: 54rem;
+  --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  --motion-short: 140ms;
+}
+
+:root[data-theme="ayu-light"] {
+  color-scheme: light;
+  --ayu-bg: #f8f9fa;
+  --ayu-fg: #5c6166;
+  --ayu-selection: #d3e1f5;
+  --ayu-black: #000000;
+  --ayu-red: #ea6c6d;
+  --ayu-green: #6cbf43;
+  --ayu-yellow: #eca944;
+  --ayu-blue: #3199e1;
+  --ayu-magenta: #9e75c7;
+  --ayu-cyan: #46ba94;
+  --ayu-white: #c7c7c7;
+  --ayu-bright-black: #686868;
+  --ayu-bright-red: #f07171;
+  --ayu-bright-green: #86b300;
+  --ayu-bright-yellow: #f2ae49;
+  --ayu-bright-blue: #399ee6;
+  --ayu-bright-magenta: #a37acc;
+  --ayu-bright-cyan: #4cbf99;
+  --ayu-bright-white: #d1d1d1;
+
+  --canvas: var(--ayu-bg);
+  --canvas-raised: #ffffff;
+  --canvas-inset: #ffffff;
+  --text: var(--ayu-fg);
+  --text-strong: #262b30;
+  --text-quiet: var(--ayu-fg);
+  --prompt: #47802c; /* Ayu Light green, darkened to 4.54:1 for text */
+  --link: #1b77b8; /* Ayu Light blue, darkened to 4.55:1 for text */
+  --selected-bg: var(--ayu-selection);
+  --selected-text: var(--ayu-fg);
+  --action-fill: var(--ayu-yellow);
+  --menu-accent: #9e6510; /* Ayu Light yellow, darkened to 4.61:1 for text */
+  --menu-number-text: #ffffff;
+  --action-border: var(--ayu-fg);
+  --action-wash: var(--ayu-yellow); /* exact Ayu Light yellow as a fill */
+  --action-text: #000000;
+  --action-label: #000000; /* 10.3:1 on the yellow fill */
+  --cursor: var(--ayu-blue);
+  --line: #d7dce1;
+  --line-strong: #8e979f;
+  --focus: var(--ayu-fg);
+  --status: var(--ayu-green);
+  --error: #9b232b;
+}
