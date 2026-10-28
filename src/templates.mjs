@@ -21,7 +21,8 @@ const link = (href, label, options = {}) =>
 
 function topbar(locale, routeId, ui, theme) {
   const isHome = routeId === 'home';
-  const localeRoute = routeId === 'notFound' ? 'home' : routeId;
+  // Documents are reached through the menu, so the language switch goes to the menu page.
+  const localeRoute = routeId === 'home' || routeId === 'notFound' ? 'home' : 'explore';
   return `<a class="skip-link" href="#main">${escapeHtml(ui.skip)}</a>
   <header class="terminal-bar${isHome ? ' terminal-bar--entry' : ''}" aria-label="${escapeHtml(ui.topbar)}">
     ${!isHome ? link(routePath('home', locale), '<span>hamza@hedhly:~/explore$</span><span aria-hidden="true"> _</span>', { class: 'terminal-brand', 'aria-label': ui.home }) : ''}
@@ -109,7 +110,7 @@ function credentials() {
 function socialLinks() {
   return `<ul class="resource-links">${shared.social.map(item => `<li>${link(item.href,
     `<span class="link-marker" aria-hidden="true">[EXT]</span> ${escapeHtml(item.name)}`,
-    { rel: 'noopener noreferrer' })}</li>`).join('')}</ul>`;
+    { rel: 'noopener noreferrer', target: '_blank' })}</li>`).join('')}</ul>`;
 }
 
 function menu(locale, copy, activeId, ui) {
@@ -138,8 +139,8 @@ function documentBody(locale, routeId, content) {
         ${markdownHeading(3, recordValue(shared.outcomes[1].title, locale))}<p>${escapeHtml(page.project2)}</p>
       </section>
       <nav class="document-links" aria-label="${escapeHtml(page.moreHeading)}">
-        ${link(routePath('automation', locale), escapeHtml(page.moreAutomation))}
-        ${link(routePath('experience', locale), escapeHtml(page.moreExperience))}
+        ${link(routePath('explore', locale), escapeHtml(page.moreAutomation))}
+        ${link(routePath('explore', locale), escapeHtml(page.moreExperience))}
       </nav>`;
   } else if (routeId === 'automation') {
     details = `<section class="document-section">${markdownHeading(2, page.skillsHeading)}${capabilityList(locale, 'automation')}</section>
@@ -147,16 +148,16 @@ function documentBody(locale, routeId, content) {
         ${markdownHeading(3, recordValue(shared.outcomes[2].title, locale))}<p>${escapeHtml(page.project)}</p>
       </section>
       <nav class="document-links" aria-label="${escapeHtml(page.relatedHeading)}">
-        ${link(routePath('platform', locale), escapeHtml(page.platformLink))}
-        ${link(routePath('experience', locale), escapeHtml(page.experienceLink))}
+        ${link(routePath('explore', locale), escapeHtml(page.platformLink))}
+        ${link(routePath('explore', locale), escapeHtml(page.experienceLink))}
       </nav>`;
   } else if (routeId === 'experience') {
     details = `<section class="document-section">${markdownHeading(2, page.timelineHeading)}${experienceList(locale, page)}</section>
       <section class="document-section">${markdownHeading(2, page.principleHeading)}<p>${escapeHtml(page.principle)}</p></section>
       <section class="document-section" id="certifications">${markdownHeading(2, page.certHeading)}<p>${escapeHtml(page.certIntro)}</p>${credentials()}</section>
       <nav class="document-links" aria-label="${escapeHtml(page.timelineHeading)}">
-        ${link(`${routePath('platform', locale)}#outcomes`, escapeHtml(page.outcomesLink))}
-        ${link(routePath('automation', locale), escapeHtml(page.automationLink))}
+        ${link(routePath('explore', locale), escapeHtml(page.outcomesLink))}
+        ${link(routePath('explore', locale), escapeHtml(page.automationLink))}
       </nav>`;
   } else if (routeId === 'profile') {
     details = `<p>${escapeHtml(shared.profile.role[locale])} / ${escapeHtml(shared.profile.location[locale])}</p>
@@ -165,8 +166,8 @@ function documentBody(locale, routeId, content) {
       <section class="document-section">${markdownHeading(2, page.socialHeading)}${socialLinks()}<p>${escapeHtml(page.locationLabel)}: ${escapeHtml(shared.profile.location[locale])}</p></section>
       <section class="document-section" id="profile-contact">${markdownHeading(2, page.contactHeading)}<p>${escapeHtml(page.contactIntro)}</p>${emailReveal(locale, { emailPrompt: content.explore.emailPrompt }, content.contact, { id: 'profile-contact-reveal' })}</section>
       <nav class="document-links" aria-label="${escapeHtml(page.linksHeading)}">
-        ${link(routePath('experience', locale), escapeHtml(content.experience.timelineHeading))}
-        ${link(routePath('platform', locale), escapeHtml(content.platform.heading))}
+        ${link(routePath('explore', locale), escapeHtml(content.experience.timelineHeading))}
+        ${link(routePath('explore', locale), escapeHtml(content.platform.heading))}
       </nav>`;
   }
   return `<article class="document-output" aria-labelledby="document-heading">
@@ -207,7 +208,7 @@ function exploreBody(locale, content, activeId = null) {
 function homeSummaries(locale, content) {
   const copy = content.home;
   const [platform, automation, experience] = content.explore.menu;
-  const documentLinks = (label, items) => `<nav class="document-links" aria-label="${escapeHtml(label)}">${items.map(([route, text]) => link(routePath(route, locale), escapeHtml(text))).join('')}</nav>`;
+  const documentLinks = (label, items) => `<nav class="document-links" aria-label="${escapeHtml(label)}">${items.map(([, text]) => link(routePath('explore', locale), escapeHtml(text))).join('')}</nav>`;
   const outcomes = shared.outcomes.map(item => `<li>
       ${markdownHeading(3, recordValue(item.title, locale))}
       <p>${escapeHtml(recordValue(item.details, locale))}</p>
@@ -253,7 +254,7 @@ function homeSummaries(locale, content) {
         ${markdownHeading(2, copy.contactHeading, { id: 'contact-heading' })}
         <p>${escapeHtml(copy.contactLead)}</p>
         ${socialLinks()}
-        <p>${link(routePath('profile', locale), escapeHtml(copy.profileLink), { class: 'text-action' })}</p>
+        <p>${link(routePath('explore', locale), escapeHtml(copy.profileLink), { class: 'text-action' })}</p>
       </div>
     </section>
     ${link(routePath('explore', locale), `← ${escapeHtml(copy.allAreas)}`, { class: 'back-to-menu' })}
@@ -274,7 +275,6 @@ function homeBody(locale, content) {
         ${link(routePath('explore', locale), `<span aria-hidden="true">→</span> ${escapeHtml(hiring ? copy.hireCta : copy.explore)}`, {
           class: 'entry-action', 'aria-label': hiring ? copy.hireLabel : copy.exploreLabel,
         })}
-        ${link(routePath('profile', locale), escapeHtml(copy.profileLink), { class: 'entry-secondary' })}
       </div>
     </div>
     ${homeSummaries(locale, content)}

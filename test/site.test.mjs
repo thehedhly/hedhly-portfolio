@@ -262,3 +262,39 @@ test('light theme text colours meet 4.5:1 on the light canvas', async () => {
   assert.ok(fill, 'action fill is the exact Ayu Light yellow');
   assert.ok(ratio(label, fill) >= 4.5, `action label on yellow ${ratio(label, fill).toFixed(2)}:1`);
 });
+
+test('terminal menu pages show no cat line by default in either language', async () => {
+  for (const locale of ['de', 'en']) {
+    const explore = await read(`${locale}/explore/index.html`);
+    assert.doesNotMatch(explore, /cat [a-z]+\.md/, `${locale} menu page has a cat line`);
+    assert.match(explore, /<p class="terminal-ready"[^>]*><span class="command-prompt">hamza@hedhly:~\/explore\$<\/span> <span class="cursor">▊<\/span><\/p>/, `${locale} menu page ends with the bare prompt`);
+  }
+});
+
+test('only the terminal menu links to document pages; other links go to the menu page', async () => {
+  const documentRoutes = ['platform', 'automation', 'experience', 'profile'];
+  const files = (await readdir(dist, { recursive: true })).filter(file => file.endsWith('.html') && file !== '404.html');
+  for (const file of files) {
+    const html = (await read(file)).replace(/<ol class="terminal-menu">[\s\S]*?<\/ol>/, '');
+    for (const route of documentRoutes) {
+      assert.doesNotMatch(html, new RegExp(`href="/(?:de|en)/explore/${route}/"`), `${file} links to ${route} outside the menu`);
+    }
+  }
+});
+
+test('language switch from a document goes to the menu page of the other language', async () => {
+  const platform = await read('de/explore/platform/index.html');
+  assert.match(platform, /<a href="\/en\/explore\/" class="language-link" lang="en"/);
+  const home = await read('de/index.html');
+  assert.match(home, /<a href="\/en\/" class="language-link" lang="en"/);
+});
+
+test('every [EXT] link opens in a new tab', async () => {
+  const files = (await readdir(dist, { recursive: true })).filter(file => file.endsWith('.html'));
+  for (const file of files) {
+    const html = await read(file);
+    for (const [anchor] of html.matchAll(/<a [^>]*>(?:(?!<\/a>).)*\[EXT\](?:(?!<\/a>).)*<\/a>/gs)) {
+      assert.match(anchor, /target="_blank"/, `${file} has an [EXT] link that stays in the tab`);
+    }
+  }
+});
