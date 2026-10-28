@@ -34,7 +34,7 @@
   --action-fill: var(--ayu-yellow);
   --menu-accent: var(--ayu-yellow);
   --menu-number-text: var(--ayu-bg);
-  --action-border: #614522;
+  --action-border: #8a6230; /* derived role colour: 3:1 boundary on canvas */
   --action-wash: rgb(249 175 79 / 7%);
   --action-text: var(--ayu-bg);
   --line: #292f3a;

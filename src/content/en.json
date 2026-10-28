@@ -47,7 +47,9 @@
     "contactLead": "What could we solve with Azure, Kubernetes or automation?",
     "allAreas": "Explore all terminal sections",
     "footer": "Engineered for reliable systems.",
-    "backTop": "Back to top"
+    "backTop": "Back to top",
+    "statusExplore": "ALL SYSTEMS OPERATIONAL",
+    "statusHire": "OPEN TO NEW ROLES"
   },
   "explore": {
     "title": "Explore the portfolio | Hamza Hedhly",

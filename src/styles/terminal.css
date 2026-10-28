@@ -102,8 +102,13 @@ button:disabled, select:disabled { cursor: default; }
   letter-spacing: .09em;
   text-transform: uppercase;
 }
-.entry-cursor { margin-left: .35em; font-size: .85em; animation: cursor-blink 1s steps(1, end) 3; }
+.entry-cursor { margin-left: .35em; font-size: .85em; animation: cursor-blink 1s steps(1, end) 4; }
 .entry-role { margin-top: 8px; color: var(--text-quiet); font-size: 12px; letter-spacing: .015em; }
+.entry-status { margin: 0 0 40px; color: var(--text-quiet); font-size: 11px; letter-spacing: .09em; }
+.status-dot { display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: var(--status); vertical-align: middle; }
+.entry-lead { max-width: 52ch; margin: 24px auto 0; color: var(--text-quiet); font-size: 14px; line-height: 1.65; }
+.entry-secondary { display: inline-block; margin-top: 20px; padding-block: 4px; color: var(--text-quiet); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.entry-secondary:hover { color: var(--text); }
 .entry-action {
   display: inline-flex;
   align-items: center;
@@ -200,7 +205,7 @@ button:disabled, select:disabled { cursor: default; }
 .document-links a { display: inline-block; padding-block: 4px; }
 .back-to-menu { display: inline-block; margin-top: 28px; padding-block: 4px; }
 .terminal-ready { margin-top: 32px; }
-.cursor { color: var(--prompt); animation: cursor-blink 1s steps(1, end) 3; }
+.cursor { color: var(--prompt); animation: cursor-blink 1s steps(1, end) 4; }
 @keyframes cursor-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 @keyframes document-arrive { from { opacity: .65; transform: translateY(3px); } to { opacity: 1; transform: none; } }
 

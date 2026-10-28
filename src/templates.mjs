@@ -207,13 +207,17 @@ function homeBody(locale, content) {
     ['certifications', 'experience', copy.certHeading, '#certifications'],
     ['contact', 'profile', copy.profileLink],
   ];
+  // CTA and status text are controlled by site.availability in src/config/site.mjs
   return `<main id="main" tabindex="-1" class="entry-screen">
     <div class="entry-content" id="top">
+      <p class="entry-status"><span class="status-dot" aria-hidden="true"></span>${escapeHtml(hiring ? copy.statusHire : copy.statusExplore)}</p>
       <h1>${escapeHtml(site.name)}<span class="entry-cursor" aria-hidden="true">▊</span></h1>
-      <p class="entry-role">${escapeHtml(shared.profile.role[locale])}</p>
+      <p class="entry-role">${escapeHtml(shared.profile.role[locale])} · ${escapeHtml(shared.profile.locationName)}</p>
+      <p class="entry-lead">${escapeHtml(copy.lead)}</p>
       ${link(routePath('explore', locale), `<span aria-hidden="true">→</span> ${escapeHtml(hiring ? copy.hireCta : copy.explore)}`, {
     class: 'entry-action', 'aria-label': hiring ? copy.hireLabel : copy.exploreLabel,
   })}
+      ${link(routePath('profile', locale), escapeHtml(copy.profileLink), { class: 'entry-secondary' })}
     </div>
     <nav class="legacy-anchor-links" aria-label="${escapeHtml(content.ui.continue)}">${legacyRoutes.map(([id, route, label, hash = '']) => link(`${routePath(route, locale)}${hash}`, escapeHtml(label), { id, 'data-legacy-link': true })).join('')}</nav>
   </main>`;

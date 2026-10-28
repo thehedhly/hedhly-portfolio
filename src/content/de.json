@@ -9,8 +9,8 @@
     "eyebrow": "PLATFORM ENGINEERING / DÜSSELDORF",
     "explore": "Explore",
     "exploreLabel": "Explore – Portfolio erkunden",
-    "hireCta": "Offen für neue Aufgaben",
-    "hireLabel": "Offen für neue Aufgaben – Möglichkeiten ansehen",
+    "hireCta": "Verfügbar für Projekte",
+    "hireLabel": "Verfügbar für Projekte – Möglichkeiten ansehen",
     "profileLink": "Profil & Kontakt",
     "profileHint": "Erfahrung, Projekte und Möglichkeiten zur Kontaktaufnahme",
     "workflowLabel": "Platform-Engineering-Schwerpunkte",
@@ -47,7 +47,9 @@
     "contactLead": "Welche Herausforderung können wir mit Azure, Kubernetes oder Automatisierung lösen?",
     "allAreas": "Alle Terminal-Bereiche erkunden",
     "footer": "Entwickelt für zuverlässige Systeme.",
-    "backTop": "Nach oben"
+    "backTop": "Nach oben",
+    "statusExplore": "ALLE SYSTEME BETRIEBSBEREIT",
+    "statusHire": "OFFEN FÜR NEUE AUFGABEN"
   },
   "explore": {
     "title": "Portfolio entdecken | Hamza Hedhly",
