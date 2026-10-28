@@ -1,7 +1,8 @@
 (() => {
   'use strict';
 
-  document.querySelectorAll('[data-contact]').forEach(contact => {
+  const bind = root => root.querySelectorAll('[data-contact]:not([data-bound])').forEach(contact => {
+    contact.dataset.bound = 'true';
     const prompt = contact.querySelector('[data-address-prompt]');
     const reveal = contact.querySelector('[data-reveal-address]');
     const result = contact.querySelector('[data-address-result]');
@@ -66,4 +67,8 @@
       }
     });
   });
+
+  bind(document);
+  // The document region is replaced in place, so reveal controls inside it are bound again after each swap.
+  document.addEventListener('terminal:swap', () => bind(document));
 })();

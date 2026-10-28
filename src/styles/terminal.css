@@ -100,7 +100,7 @@ button:disabled, select:disabled { cursor: default; }
   letter-spacing: .09em;
   text-transform: uppercase;
 }
-.entry-cursor { margin-left: .35em; font-size: .85em; animation: cursor-blink 1s steps(1, end) 4; }
+.entry-cursor { margin-left: .35em; font-size: .85em; color: var(--cursor); animation: cursor-blink 1s steps(1, end) 4; }
 .entry-role { margin-top: 8px; color: var(--text-quiet); font-size: 12px; letter-spacing: .015em; }
 .entry-status { margin: 0 0 40px; color: var(--text-quiet); font-size: 11px; letter-spacing: .09em; }
 .status-dot { display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: var(--status); vertical-align: middle; }
@@ -118,7 +118,7 @@ button:disabled, select:disabled { cursor: default; }
   border: 1px solid var(--action-border);
   border-radius: 3px;
   background: var(--action-wash);
-  color: var(--menu-accent);
+  color: var(--action-label);
   font-size: 14px;
   text-decoration: none;
   text-transform: uppercase;
@@ -133,8 +133,9 @@ button:disabled, select:disabled { cursor: default; }
 .site-footer p { margin: 0; }
 
 /* Match the reference's single, indented transcript and generous upper space. */
-.terminal-screen { width: min(100%, 1000px); margin-inline: auto; padding: 300px 64px 48px; }
+.terminal-screen { width: min(100%, 1000px); margin-inline: auto; padding: clamp(72px, 14vh, 140px) 64px 48px; }
 .command-line { margin: 0; overflow-wrap: anywhere; }
+.command-line > span:last-child { white-space: nowrap; }
 .command-prompt { color: var(--prompt); }
 .terminal-output, .document-copy { margin-left: 24px; }
 .intro-block .terminal-output { max-width: 630px; margin-top: 8px; }
@@ -149,7 +150,7 @@ button:disabled, select:disabled { cursor: default; }
   border: 1px solid var(--action-border);
   border-radius: 2px;
   background: var(--action-wash);
-  color: var(--menu-accent);
+  color: var(--action-label);
   text-decoration: none;
 }
 .text-action:hover { color: var(--text-strong); border-color: var(--menu-accent); }
@@ -176,11 +177,11 @@ button:disabled, select:disabled { cursor: default; }
 }
 .menu-number { flex: 0 0 auto; color: var(--menu-accent); }
 .menu-link:hover, .menu-link--current { color: var(--menu-accent); }
-.menu-link--current .menu-number { color: var(--menu-number-text); background: var(--menu-accent); }
+.menu-link--current .menu-number { color: var(--action-text); background: var(--action-fill); }
 .menu-link--current { font-weight: 500; }
 .menu-region:focus-visible { outline-offset: 7px; }
 [data-document-region][aria-busy="true"] { opacity: .7; }
-.document-output { margin-top: 32px; animation: document-arrive 160ms ease-out; }
+.document-output { margin-top: 32px; scroll-margin-top: 80px; animation: document-arrive 160ms ease-out; }
 .document-output > .document-copy { margin-top: 8px; }
 .document-copy { overflow-wrap: anywhere; }
 .document-copy h1, .document-copy h2, .document-copy h3 { color: var(--text); font-size: 15px; line-height: 1.6; font-weight: 600; }
@@ -206,13 +207,15 @@ button:disabled, select:disabled { cursor: default; }
 .document-links a { display: inline-block; padding-block: 4px; }
 .back-to-menu { display: inline-block; margin-top: 28px; padding-block: 4px; }
 .terminal-ready { margin-top: 32px; }
-.cursor { color: var(--prompt); animation: cursor-blink 1s steps(1, end) 4; }
+.cursor { color: var(--cursor); animation: cursor-blink 1s steps(1, end) 4; }
 @keyframes cursor-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 @keyframes document-arrive { from { opacity: .65; transform: translateY(3px); } to { opacity: 1; transform: none; } }
 /* Typed command: 18 ms per character. The text stays in the DOM; the animation only reveals it. */
 .cmd-typed.is-typing { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; width: calc(var(--len) * 1ch + 1px); animation: type-in calc(var(--len) * 18ms) steps(var(--len)) both; }
 @keyframes type-in { from { width: 0; } }
 .menu-tools { margin: 16px 0 0; }
+/* Shortcut state is visible: filled when on, outlined and muted when off. */
+.shortcut-toggle[aria-pressed="false"] { background: transparent; border-color: var(--line-strong); color: var(--text-quiet); }
 
 @media (max-width: 767px) {
   .terminal-screen { padding: 96px 24px 40px; }
@@ -234,9 +237,6 @@ button:disabled, select:disabled { cursor: default; }
   .terminal-screen { padding-inline: 16px; }
   .home-summaries, .site-footer { padding-inline: 16px; }
   .terminal-output, .document-copy { margin-left: 12px; }
-}
-@media (max-height: 700px) and (min-width: 768px) {
-  .terminal-screen { padding-top: 160px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

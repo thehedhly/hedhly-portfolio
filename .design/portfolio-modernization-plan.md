@@ -238,10 +238,11 @@ Contrast of the downloaded colours (verify again on the rendered components):
 | Yellow / canvas | 10.37:1 | 1.93:1 | Light theme: yellow is never text and never the only boundary |
 | Bright black / canvas | 3.47:1 | 5.29:1 | Dark theme: do not use for small muted text |
 
-In light mode:
-- Prompt, menu, and link text use the primary foreground; links are underlined.
-- Accents become markers, underlines, or fills behind dark text.
-- The inverted `[n]` uses a yellow fill with normal-black text and a primary-foreground outline.
+Light theme (hybrid, decided 28 October 2026 after the terminalcolors.com comparison):
+- Fills, the cursor and the status dot use the exact Ayu Light colours (`#eca944` yellow, `#3199e1` blue, `#6cbf43` green).
+- Small coloured text uses the same hue, darkened to at least 4.5:1 on the canvas: prompt `#47802c` (4.54:1), links `#1b77b8` (4.55:1), menu numbers and text actions `#9e6510` (4.61:1).
+- Labels on yellow fills are black (`#000000`, 10.3:1). The selected `[n]` is a yellow fill with black text.
+- A test in `test/site.test.mjs` fails if any light text colour drops below 4.5:1.
 
 Selection must never depend on hue alone. Use the inverted number plus `aria-current`.
 

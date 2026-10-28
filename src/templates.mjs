@@ -163,6 +163,7 @@ function documentBody(locale, routeId, content) {
       <section class="document-section">${markdownHeading(2, page.principleHeading)}<p>${escapeHtml(page.principle)}</p></section>
       <section class="document-section">${markdownHeading(2, page.expertiseHeading)}${technologies(shared.profile.knowsAbout, locale)}</section>
       <section class="document-section">${markdownHeading(2, page.socialHeading)}${socialLinks()}<p>${escapeHtml(page.locationLabel)}: ${escapeHtml(shared.profile.location[locale])}</p></section>
+      <section class="document-section" id="profile-contact">${markdownHeading(2, page.contactHeading)}<p>${escapeHtml(page.contactIntro)}</p>${emailReveal(locale, { emailPrompt: content.explore.emailPrompt }, content.contact, { id: 'profile-contact-reveal' })}</section>
       <nav class="document-links" aria-label="${escapeHtml(page.linksHeading)}">
         ${link(routePath('experience', locale), escapeHtml(content.experience.timelineHeading))}
         ${link(routePath('platform', locale), escapeHtml(content.platform.heading))}
@@ -288,11 +289,12 @@ function notFoundBody(locale, content) {
   return `<main id="main" class="terminal-screen" tabindex="-1">
     ${sectionCommand('cat 404.md')}
     <div class="document-copy">
-      ${markdownHeading(1, locale === 'de' ? 'Seite nicht gefunden.' : 'Page not found.')}
-      <p>${escapeHtml(locale === 'de' ? 'Diese Datei ist in diesem Portfolio nicht vorhanden.' : 'This file is not part of the portfolio.')}</p>
+      ${markdownHeading(1, 'Seite nicht gefunden. / Page not found.')}
+      <p lang="de">Diese Datei ist in diesem Portfolio nicht vorhanden.</p>
+      <p lang="en">This file is not part of the portfolio.</p>
       <nav class="document-links" aria-label="${escapeHtml(content.ui.language)}">
-        ${link(routePath('home', 'de'), 'Deutsch →')}
-        ${link(routePath('home', 'en'), 'English →')}
+        ${link(routePath('home', 'de'), 'Deutsch →', { lang: 'de' })}
+        ${link(routePath('home', 'en'), 'English →', { lang: 'en' })}
       </nav>
     </div>
   </main>`;
@@ -384,8 +386,8 @@ function documentHead({ routeId, locale, canonicalPath, title, description, asse
   <meta name="description" content="${escapeHtml(description)}">
   ${noindex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robots" content="index,follow,max-image-preview:large">'}
   <title>${escapeHtml(title)}</title>
-  <link rel="canonical" href="${canonical}">
-  ${languageAlternates(routeId)}
+  ${noindex ? '' : `<link rel="canonical" href="${canonical}">
+  ${languageAlternates(routeId)}`}
   <link rel="icon" type="image/png" href="/assets/images/brand-avatar.png">
   <link rel="preload" href="${assets.css}" as="style">
   <link rel="stylesheet" href="${assets.css}">
@@ -406,7 +408,7 @@ function documentHead({ routeId, locale, canonicalPath, title, description, asse
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${image}">
-  <script type="application/ld+json">${serializedSchema}</script>
+  ${noindex ? '' : `<script type="application/ld+json">${serializedSchema}</script>`}
 </head>`;
 }
 
@@ -438,7 +440,7 @@ export function renderHome({ locale, content, assets, theme = site.defaultTheme,
 }
 
 export function renderHomeNotFound({ locale, content, assets }) {
-  const title = locale === 'de' ? 'Seite nicht gefunden | Hamza Hedhly' : 'Page not found | Hamza Hedhly';
+  const title = 'Seite nicht gefunden / Page not found | Hamza Hedhly';
   return `${documentHead({ routeId: 'notFound', locale, canonicalPath: routePath('home', locale), title, description: title, assets, noindex: true })}
 <body data-page="notFound" data-locale="${locale}">
   ${topbar(locale, 'notFound', content.ui, site.defaultTheme)}

@@ -68,6 +68,7 @@
       // menu focus, theme, and scroll position stay in place like a terminal.
       region.replaceChildren(...Array.from(nextRegion.childNodes, node => document.importNode(node, true)));
       prepareTyping(region);
+      document.dispatchEvent(new CustomEvent('terminal:swap'));
       overviewHeading.replaceChildren(...Array.from(nextHeading.childNodes, node => document.importNode(node, true)));
       links.forEach(link => {
         const selected = link.dataset.documentId === nextPage;
@@ -89,6 +90,12 @@
       if (pushHistory && url.href !== window.location.href) history.pushState(null, '', url.href);
       const selectedLabel = links.find(link => link.dataset.documentId === nextPage)?.lastElementChild.textContent;
       status.textContent = nextPage === 'explore' ? status.dataset.closed : status.dataset.opened.replace('{label}', selectedLabel || '');
+      // Bring an opened document into view when it starts below the fold. Focus stays on the menu.
+      const output = region.querySelector('.document-output');
+      if (output && output.getBoundingClientRect().top > window.innerHeight * 0.5) {
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        output.scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' });
+      }
     } catch (error) {
       if (error.name !== 'AbortError' && version === navigationVersion) window.location.assign(url.href);
     } finally {

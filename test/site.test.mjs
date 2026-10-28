@@ -218,3 +218,47 @@ test('runtime scripts parse as classic scripts', async () => {
     assert.doesNotThrow(() => new vm.Script(source), name);
   }
 });
+
+test('profile page has its own contact section with the reveal control', async () => {
+  for (const locale of ['de', 'en']) {
+    const html = await read(`${locale}/explore/profile/index.html`);
+    assert.match(html, /<section class="document-section" id="profile-contact">/, `${locale} profile contact section`);
+    assert.match(html, /id="profile-contact-reveal" data-contact/, `${locale} profile reveal`);
+    assert.doesNotMatch(html, /[\w.+-]+@[\w-]+\.[a-z]{2,}/i, `${locale} profile has no literal address`);
+  }
+});
+
+test('not-found page is noindex, bilingual and carries no canonical or structured data', async () => {
+  const html = await read('404.html');
+  assert.match(html, /<meta name="robots" content="noindex,follow">/);
+  assert.doesNotMatch(html, /rel="canonical"/);
+  assert.doesNotMatch(html, /application\/ld\+json/);
+  assert.match(html, /Seite nicht gefunden/);
+  assert.match(html, /Page not found/);
+});
+
+test('light theme text colours meet 4.5:1 on the light canvas', async () => {
+  const css = await readFile(new URL('../src/styles/tokens.css', import.meta.url), 'utf8');
+  const light = css.slice(css.indexOf('ayu-light"]'));
+  const value = name => light.match(new RegExp(`--${name}:\\s*(#[0-9a-fA-F]{6})`))?.[1];
+  const luminance = hex => {
+    const channels = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map(c => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+  };
+  const ratio = (a, b) => {
+    const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+  };
+  const canvas = value('ayu-bg');
+  assert.ok(canvas, 'light canvas is defined');
+  for (const name of ['prompt', 'link', 'menu-accent']) {
+    const hex = light.match(new RegExp(`--${name}:\\s*(#[0-9a-fA-F]{6})`))?.[1];
+    assert.ok(hex, `${name} is a hex value`);
+    assert.ok(ratio(hex, canvas) >= 4.5, `${name} ${hex} is ${ratio(hex, canvas).toFixed(2)}:1`);
+  }
+  const label = light.match(/--action-label:\s*(#[0-9a-fA-F]{6})/)[1];
+  const fill = light.match(/--action-wash:\s*var\(--ayu-yellow\)/) ? value('ayu-yellow') : null;
+  assert.ok(fill, 'action fill is the exact Ayu Light yellow');
+  assert.ok(ratio(label, fill) >= 4.5, `action label on yellow ${ratio(label, fill).toFixed(2)}:1`);
+});

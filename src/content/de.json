@@ -6,30 +6,11 @@
     "description": "DevSecOps Engineer in Düsseldorf. Sichere Azure- und Kubernetes-Plattformen, automatisiert mit Terraform, Ansible und GitOps.",
     "heading": "Cloud-Plattformen, die Teams sicher voranbringen.",
     "lead": "Ich verbinde Cloud Engineering, Automatisierung und Security – von Azure und Kubernetes bis zu Infrastructure as Code und verlässlichen Releases.",
-    "eyebrow": "PLATFORM ENGINEERING / DÜSSELDORF",
     "explore": "Explore",
     "exploreLabel": "Explore – Portfolio erkunden",
     "hireCta": "Verfügbar für Projekte",
     "hireLabel": "Verfügbar für Projekte – Möglichkeiten ansehen",
     "profileLink": "Profil & Kontakt",
-    "profileHint": "Erfahrung, Projekte und Möglichkeiten zur Kontaktaufnahme",
-    "workflowLabel": "Platform-Engineering-Schwerpunkte",
-    "workflowFile": "platform.workflow",
-    "workflowLines": [
-      {
-        "command": "$ terraform plan",
-        "result": "# Infrastruktur als Code"
-      },
-      {
-        "command": "$ kubectl get platform",
-        "result": "# Kubernetes / AKS"
-      },
-      {
-        "command": "$ argocd app list",
-        "result": "# Nachvollziehbare Releases"
-      }
-    ],
-    "technologyLabel": "Technologie-Schwerpunkte",
     "expertiseKicker": "01 / Fachgebiete",
     "expertiseHeading": "Cloud, Automatisierung & Security.",
     "expertiseLead": "Von Azure und Kubernetes bis zu den Pipelines, mit denen Teams zuverlässig ausliefern.",
@@ -59,7 +40,6 @@
     "emailPrompt": "E-Mail:",
     "menuCommand": "./menu",
     "menuHeading": "Was möchtest du entdecken?",
-    "shortcutLabel": "Nummern-Tastenkürzel für dieses Menü aktivieren",
     "shortcutHelp": "Wenn ein Menüeintrag fokussiert ist, öffnet die Zahl 1 bis 4 den jeweiligen Bereich. Den aktiven Eintrag erneut auswählen, um ihn zu schließen.",
     "menu": [
       {
@@ -90,9 +70,7 @@
         "command": "cat profile.md",
         "description": "Arbeitsprinzipien, Standort und Kontakt."
       }
-    ],
-    "help": "Eintrag auswählen, um das Dokument zu öffnen.",
-    "results": "Ausgewählte Terminal-Datei"
+    ]
   },
   "platform": {
     "title": "Azure, Kubernetes & Cloud-Security | Hamza Hedhly",
@@ -158,8 +136,7 @@
     "retry": "Erneut versuchen",
     "noScript": "Um die E-Mail-Adresse anzuzeigen, JavaScript aktivieren. Alternativ kannst du mich auf LinkedIn kontaktieren.",
     "contactLabel": "E-Mail-Adresse",
-    "linkedin": "Auf LinkedIn kontaktieren",
-    "github": "GitHub ansehen"
+    "linkedin": "Auf LinkedIn kontaktieren"
   },
   "ui": {
     "home": "Hamza Hedhly – Startseite",
@@ -168,13 +145,10 @@
     "darkTheme": "Ayu Dark",
     "lightTheme": "Ayu Light",
     "language": "Sprache auswählen",
-    "nav": "Sprache",
     "exit": "Exit – zurück zur Startseite",
     "skip": "Zum Inhalt springen",
     "backToMenu": "Zurück zum Menü",
     "explore": "Terminal-Menü öffnen",
-    "continue": "Zum nächsten Bereich",
-    "certLogo": "Zertifikatslogo: {provider}",
     "footer": "Hamza Hedhly. Entwickelt für zuverlässige Systeme.",
     "documentLoading": "Dokument wird geladen.",
     "documentOpened": "Geöffnet: {label}.",

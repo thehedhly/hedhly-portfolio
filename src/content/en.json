@@ -6,30 +6,11 @@
     "description": "DevSecOps engineer in Düsseldorf, Germany. Secure Azure and Kubernetes platforms automated with Terraform, Ansible and GitOps.",
     "heading": "Cloud platforms that help teams ship securely.",
     "lead": "I bring cloud engineering, automation and security together—from Azure and Kubernetes to Infrastructure as Code and reliable releases.",
-    "eyebrow": "PLATFORM ENGINEERING / DÜSSELDORF",
     "explore": "Explore",
     "exploreLabel": "Explore – browse the portfolio",
     "hireCta": "Available for hire",
     "hireLabel": "Available for hire – view opportunities",
     "profileLink": "Profile & contact",
-    "profileHint": "Experience, project outcomes and ways to get in touch",
-    "workflowLabel": "Platform engineering focus areas",
-    "workflowFile": "platform.workflow",
-    "workflowLines": [
-      {
-        "command": "$ terraform plan",
-        "result": "# Infrastructure as Code"
-      },
-      {
-        "command": "$ kubectl get platform",
-        "result": "# Kubernetes / AKS"
-      },
-      {
-        "command": "$ argocd app list",
-        "result": "# Traceable releases"
-      }
-    ],
-    "technologyLabel": "Technology focus areas",
     "expertiseKicker": "01 / Expertise",
     "expertiseHeading": "Cloud, automation & security.",
     "expertiseLead": "From Azure and Kubernetes to the pipelines teams use to deliver reliably.",
@@ -59,7 +40,6 @@
     "emailPrompt": "Email:",
     "menuCommand": "./menu",
     "menuHeading": "What would you like to explore?",
-    "shortcutLabel": "Enable number-key shortcuts for this menu",
     "shortcutHelp": "While a menu item is focused, press 1 to 4 to open a section. Select the active item again to close it.",
     "menu": [
       {
@@ -90,9 +70,7 @@
         "command": "cat profile.md",
         "description": "Working principles, location and contact."
       }
-    ],
-    "help": "Choose a section to open its document.",
-    "results": "Selected terminal document"
+    ]
   },
   "platform": {
     "title": "Azure, Kubernetes & cloud security | Hamza Hedhly",
@@ -158,8 +136,7 @@
     "retry": "Try again",
     "noScript": "Enable JavaScript to reveal the email address, or contact me on LinkedIn.",
     "contactLabel": "Email address",
-    "linkedin": "Contact me on LinkedIn",
-    "github": "View GitHub"
+    "linkedin": "Contact me on LinkedIn"
   },
   "ui": {
     "home": "Hamza Hedhly – home",
@@ -168,13 +145,10 @@
     "darkTheme": "Ayu Dark",
     "lightTheme": "Ayu Light",
     "language": "Choose a language",
-    "nav": "Language",
     "exit": "Exit – return to home",
     "skip": "Skip to content",
     "backToMenu": "Back to menu",
     "explore": "Open the terminal menu",
-    "continue": "Continue to next section",
-    "certLogo": "Certification logo: {provider}",
     "footer": "Hamza Hedhly. Engineered for reliable systems.",
     "documentLoading": "Loading document.",
     "documentOpened": "Opened: {label}.",

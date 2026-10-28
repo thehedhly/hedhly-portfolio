@@ -34,6 +34,8 @@
   --action-fill: var(--ayu-yellow);
   --menu-accent: var(--ayu-yellow);
   --menu-number-text: var(--ayu-bg);
+  --action-label: var(--menu-accent);
+  --cursor: var(--ayu-blue);
   --action-border: #8a6230; /* derived role colour: 3:1 boundary on canvas */
   --action-wash: rgb(249 175 79 / 7%);
   --action-text: var(--ayu-bg);
@@ -77,16 +79,18 @@
   --text: var(--ayu-fg);
   --text-strong: #262b30;
   --text-quiet: var(--ayu-fg);
-  --prompt: var(--ayu-fg);
-  --link: var(--ayu-fg);
+  --prompt: #47802c; /* Ayu Light green, darkened to 4.54:1 for text */
+  --link: #1b77b8; /* Ayu Light blue, darkened to 4.55:1 for text */
   --selected-bg: var(--ayu-selection);
   --selected-text: var(--ayu-fg);
   --action-fill: var(--ayu-yellow);
-  --menu-accent: var(--ayu-fg);
+  --menu-accent: #9e6510; /* Ayu Light yellow, darkened to 4.61:1 for text */
   --menu-number-text: #ffffff;
   --action-border: var(--ayu-fg);
-  --action-wash: rgb(236 169 68 / 7%);
+  --action-wash: var(--ayu-yellow); /* exact Ayu Light yellow as a fill */
   --action-text: #000000;
+  --action-label: #000000; /* 10.3:1 on the yellow fill */
+  --cursor: var(--ayu-blue);
   --line: #d7dce1;
   --line-strong: #8e979f;
   --focus: var(--ayu-fg);
